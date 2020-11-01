@@ -15,8 +15,8 @@ public class HttpProxy {
 
 	CloseableHttpClient httpClient;
 
-	public HttpProxy() {
-		this.httpClient = HttpClientBuilder.create().build();
+	public HttpProxy(CloseableHttpClient httpClient) {
+		this.httpClient = httpClient;
 	}
 
 	public String getData(HttpGet getRequest) {

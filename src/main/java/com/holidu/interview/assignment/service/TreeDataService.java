@@ -1,33 +1,31 @@
 package com.holidu.interview.assignment.service;
 
+import com.holidu.interview.assignment.model.SearchParam;
+import com.holidu.interview.assignment.request.HttpProxy;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.client.methods.HttpGet;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import com.holidu.interview.assignment.model.SearchParam;
-import com.holidu.interview.assignment.request.HttpProxy;
-
+@Service
 public class TreeDataService {
 
 	private final String ENDPOINT = "https://data.cityofnewyork.us/resource/nwxe-4ae8.json";
 
-	public Map<String, Integer> fetchTreeData(SearchParam searchParams) {
-		URI uri = null;
-		try {
-			uri = new URI(ENDPOINT);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+	public Map<String, Integer> fetchTreeData(SearchParam searchParams) throws URISyntaxException{
+		URI uri = new URI(ENDPOINT);
 		HttpGet getRequest = prepareGetRequest(searchParams, uri);
-		return parseResult(searchParams, new HttpProxy().getData(getRequest));
+		String result = new HttpProxy(HttpClientBuilder.create().build()).getData(getRequest);
+		return parseResult(searchParams, result);
 	}
 
 	private Map<String, Integer> parseResult(SearchParam searchParams, String result) {
@@ -36,7 +34,7 @@ public class TreeDataService {
 		JSONArray tempArray = null;
 
 		try {
-			tempArray = result != null ? new JSONArray(result) : null;
+			tempArray = result != null ? new JSONArray(result) : new JSONArray();
 
 			for (int i = 0; i < tempArray.length(); i++) {
 				JSONObject treeEntry = tempArray.getJSONObject(i);
