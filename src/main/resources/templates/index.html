@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Tree Search</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="application/javascript">
+        const currentUrl = window.location.href;
+        function submit_data(){
+            const url = currentUrl + 'submitData';
+            const data = {
+                'x_coord': $("#x_coord").val(),
+                'y_coord' : $("#y_coord").val(),
+                'radius':$("#radius").val(),
+                'common_name':$("#common_name").val()
+            };
+
+            $.ajax({
+                url:url,
+                type:"POST",
+                data:JSON.stringify(data),
+                contentType:"application/json; charset=utf-8",
+                dataType:"json",
+                success: function(data){
+                var str = JSON.stringify(data, null, 2);
+                    $("textarea#result_area").html(str);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form id="contact" onsubmit="return false;">
+            <h3>Tree Search Application</h3>
+            <fieldset>
+                <input id="x_coord" placeholder="X-Coordinate" type="text" tabindex="1" autofocus required>
+            </fieldset>
+            <fieldset>
+                <input id="y_coord" placeholder="Y-Coordinate" type="text" tabindex="2" required>
+            </fieldset>
+            <fieldset>
+                <input id="radius" placeholder="Radius (in meters)" type="text" tabindex="3" required>
+            </fieldset>
+            <fieldset>
+                <input id="common_name" placeholder="Filter by common name (optional)" type="text" tabindex="4">
+            </fieldset>
+            <fieldset>
+                <textarea id="result_area" placeholder="Result will appear here...." tabindex="5" readonly="readonly"></textarea>
+            </fieldset>
+            <fieldset>
+                <button name="submit" type="submit" onclick="submit_data()">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
