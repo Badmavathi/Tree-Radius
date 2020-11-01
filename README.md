@@ -56,4 +56,11 @@ Within the attached zip, there are two packages attached:
  
 Unit Tests coverage : 97% -> Report generated using Jacoco. 
  	
-   
+## Advantages
+1. Code can be manually tested through UI by giving required input values.
+2. Common name filtering has been added to the code which is optional to check the count of particular tree.
+
+## Disadvantages
+1. More code refactoring needs to be done, So Unit tests can be improved to make it 100%, as code is not completed testable now.
+2. Third party API returns random 1000 values and is inconsistent. We have to batch process it to get the complete result (like elastic search..)    
+
