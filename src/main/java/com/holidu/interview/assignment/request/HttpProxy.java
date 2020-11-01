@@ -8,6 +8,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.json.JSONArray;
 
 public class HttpProxy {
 
@@ -17,9 +18,9 @@ public class HttpProxy {
 		this.httpClient = httpClient;
 	}
 
-	public String getData(HttpGet getRequest) {
-		
-		String result = null;
+	public JSONArray getData(HttpGet getRequest) {
+
+		JSONArray resultArray = new JSONArray();
 		getRequest.addHeader("accept", "application/json");
 
 		try {
@@ -41,8 +42,7 @@ public class HttpProxy {
 					String line = null;
 					while ((line = reader.readLine()) != null)
 						sb.append(line + "\n");
-
-					result = sb.toString();
+					resultArray = new JSONArray(sb.toString());
 					instream.close();
 
 				}
@@ -53,6 +53,6 @@ public class HttpProxy {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		return result;
+		return resultArray;
 	}
 }

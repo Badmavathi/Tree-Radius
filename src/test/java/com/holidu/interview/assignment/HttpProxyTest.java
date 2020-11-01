@@ -48,7 +48,7 @@ public class HttpProxyTest {
         Mockito.when(httpResponse.getEntity()).thenReturn(null);
         Mockito.when(httpClient.execute(any(HttpGet.class))).thenReturn(httpResponse);
 
-        assert testInstance.getData(new HttpGet()) == null;
+        assert testInstance.getData(new HttpGet()).length() == 0;
     }
 
     @Test
@@ -60,7 +60,7 @@ public class HttpProxyTest {
         Mockito.when(httpResponse.getEntity()).thenReturn(null);
         Mockito.when(httpClient.execute(any(HttpGet.class))).thenThrow(ioException);
 
-        assert testInstance.getData(new HttpGet()) == null;
+        assert testInstance.getData(new HttpGet()).length() == 0;
         verify(ioException, times(1)).printStackTrace();
     }
 

@@ -2,6 +2,8 @@ package com.holidu.interview.assignment.controller;
 
 import java.net.URISyntaxException;
 import java.util.Map;
+
+import com.holidu.interview.assignment.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +41,7 @@ public class TreeDataController {
 		normalizeParameters(params);
 		Map<String, Integer> output = null;
 		try{
-			output = treeDataService.fetchTreeData(params);
+			output = treeDataService.fetchTreeData(params, new Utils());
 		}catch (URISyntaxException ex){
 			ex.printStackTrace();
 		}
@@ -51,7 +53,7 @@ public class TreeDataController {
 	}
 	
 	private void normalizeParameters(SearchParam params) {
-		double radiusinFeet = params.getRadius() * 3.2;
-		params.setRadius(radiusinFeet);
+		double radiusInFeet = params.getRadius() * 3.2;
+		params.setRadius(radiusInFeet);
 	}
 }

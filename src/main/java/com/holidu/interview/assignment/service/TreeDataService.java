@@ -1,15 +1,15 @@
 package com.holidu.interview.assignment.service;
 
+import com.holidu.interview.assignment.util.Utils;
 import com.holidu.interview.assignment.model.SearchParam;
-import com.holidu.interview.assignment.request.HttpProxy;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -20,26 +20,21 @@ public class TreeDataService {
 
 	private final String ENDPOINT = "https://data.cityofnewyork.us/resource/nwxe-4ae8.json";
 
-	public Map<String, Integer> fetchTreeData(SearchParam searchParams) throws URISyntaxException{
+	public Map<String, Integer> fetchTreeData(SearchParam searchParams, Utils util) throws URISyntaxException{
 		URI uri = new URI(ENDPOINT);
 		HttpGet getRequest = prepareGetRequest(searchParams, uri);
-		String result = new HttpProxy(HttpClientBuilder.create().build()).getData(getRequest);
-		return parseResult(searchParams, result);
+		JSONArray result = util.getHttpProxyInstance().getData(getRequest);
+		return filterAndMergeResults(searchParams, result, util);
 	}
 
-	private Map<String, Integer> parseResult(SearchParam searchParams, String result) {
-
-		Map<String, Integer> trees = new HashMap<String, Integer>();
-		JSONArray tempArray = null;
-
+	private Map<String, Integer> filterAndMergeResults(SearchParam searchParams, JSONArray result, Utils util) {
+		Map<String, Integer> trees = new HashMap<>();
 		try {
-			tempArray = result != null ? new JSONArray(result) : new JSONArray();
-
-			for (int i = 0; i < tempArray.length(); i++) {
-				JSONObject treeEntry = tempArray.getJSONObject(i);
+			for (int i = 0; i < result.length(); i++) {
+				JSONObject treeEntry = result.getJSONObject(i);
 				double x_sp = Double.parseDouble(treeEntry.getString("x_sp"));
 				double y_sp = Double.parseDouble(treeEntry.getString("y_sp"));
-				if (isWithinRadius(searchParams.getX_coord(), searchParams.getY_coord(), x_sp, y_sp,
+				if (util.isWithinRadius(searchParams.getX_coord(), searchParams.getY_coord(), x_sp, y_sp,
 						searchParams.getRadius())) {
 					if (!treeEntry.isNull("spc_common") && !treeEntry.getString("spc_common").isEmpty()) {
 						trees.merge(treeEntry.getString("spc_common"), 1, Integer::sum);
@@ -51,12 +46,8 @@ public class TreeDataService {
 			e.printStackTrace();
 		}
 		return trees;
-
 	}
 
-	public boolean isWithinRadius(double x, double y, double targetX, double targetY, double radius) {
-		return Math.sqrt(Math.pow((targetX - x), 2) + Math.pow((targetY - y), 2)) <= radius;
-	}
 
 	private HttpGet prepareGetRequest(SearchParam searchParams, URI uri) {
 		String fields = "spc_common, x_sp, y_sp";
