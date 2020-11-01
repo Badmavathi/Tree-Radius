@@ -8,14 +8,14 @@
     <script type="application/javascript">
         const currentUrl = window.location.href;
         function submit_data(){
-            const url = currentUrl + 'submitData';
+            const url = currentUrl + 'trees';
             const data = {
                 'x_coord': $("#x_coord").val(),
                 'y_coord' : $("#y_coord").val(),
                 'radius':$("#radius").val(),
                 'common_name':$("#common_name").val()
             };
-
+            $("textarea#result_area").html("Fetching tree data .. ");
             $.ajax({
                 url:url,
                 type:"POST",
@@ -25,6 +25,10 @@
                 success: function(data){
                 var str = JSON.stringify(data, null, 2);
                     $("textarea#result_area").html(str);
+                },
+                error:function(){
+                    alert("Error while fetching tree data. Please try again")
+                    $("textarea#result_area").html("");
                 }
             });
         }

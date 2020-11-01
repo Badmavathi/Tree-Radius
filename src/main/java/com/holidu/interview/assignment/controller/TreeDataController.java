@@ -23,7 +23,7 @@ public class TreeDataController {
 	}
 
 	
-	@PostMapping(path = "/submitData", consumes = "application/json", produces = "application/json")
+	@PostMapping(path = "/trees", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public  ResponseEntity<Map<String, Integer>> getTreeDataForPostRequest(@RequestBody SearchParam params) {
 		return fetchTrees(params);
