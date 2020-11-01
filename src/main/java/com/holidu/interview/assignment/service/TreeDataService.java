@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -42,7 +41,6 @@ public class TreeDataService {
 				double y_sp = Double.parseDouble(treeEntry.getString("y_sp"));
 				if (isWithinRadius(searchParams.getX_coord(), searchParams.getY_coord(), x_sp, y_sp,
 						searchParams.getRadius())) {
-
 					if (!treeEntry.isNull("spc_common") && !treeEntry.getString("spc_common").isEmpty()) {
 						trees.merge(treeEntry.getString("spc_common"), 1, Integer::sum);
 					}

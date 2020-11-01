@@ -26,16 +26,34 @@ If you happen to have any questions, please send an email to your HR contact at 
 Good luck and happy coding!
 
 
-##
+## Instructions to run the application.
 
-x = 913368
-y = 124270
-radius = 1000
-Sample get request :
+> Run App.java as JAVA Application
 
-http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000&common_name=Sophora
+> App is running on localhost:8080. Sample get request :
 
-http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000
+>	http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000&common_name=Sophora
+>	http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000
+    
+> To Get results from UI :
+	http://localhost:8080/
+    Enter the sample co-ordinate values	as below
+    	
+    	X-Coordinate - 913368
+    	Y-Coordinate - 124270
+    	Radius (in meters) - 1000 
+    	Filter by common name (optional) - Sophora
+    
+> Filter by common name is optional can be used to check the count of particular tree by entering it's common name.
 
-Get results from UI :
-http://localhost:8080/
+
+## Attached Package
+Within the attached zip, there are two packages attached:
+
+1. Source Code package - this contains the java application source code and unit tests.
+2. JaCoCo package - this zip folder contains the jacoco library generated files.  
+ 
+ 
+Unit Tests coverage : 97% -> Report generated using Jacoco. 
+ 	
+   
