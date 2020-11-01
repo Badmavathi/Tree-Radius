@@ -1,9 +1,5 @@
 # Tree Radius Interview Assignment
 
-Hi there! Congratulations on making it to the next step!
-
-You are given a scaffold application based on Spring Boot to save your time, but you are free to use any other frameworks if you would like to.
-
 Your task is to implement a specific feature as a REST service that uses some 3rd party API.
 A service should make an aggregated search of trees (plants, not binary trees) in the circle.
 
