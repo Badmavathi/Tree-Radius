@@ -44,7 +44,7 @@ public class TreeDataServiceTest {
         Mockito.when(jsonArrayMock.getJSONObject(anyInt())).thenThrow(jsonExceptionMock);
         Mockito.when(httpProxyMock.getData(any(HttpGet.class))).thenReturn(jsonArrayMock);
 
-        Map result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
+        Map<String, Integer> result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
         assert result.size() == 0;
         verify(jsonExceptionMock, times(1)).printStackTrace();
     }
@@ -75,7 +75,7 @@ public class TreeDataServiceTest {
         Mockito.when(httpProxyMock.getData(any(HttpGet.class))).thenReturn(jsonArray);
         Mockito.when(utilMock.getHttpProxyInstance()).thenReturn(httpProxyMock);
 
-        Map result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
+        Map<String, Integer> result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
         assert result.size() == 2;
     }
 
@@ -105,7 +105,7 @@ public class TreeDataServiceTest {
         Mockito.when(httpProxyMock.getData(any(HttpGet.class))).thenReturn(jsonArray);
         Mockito.when(utilMock.getHttpProxyInstance()).thenReturn(httpProxyMock);
 
-        Map result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
+        Map<String, Integer> result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
         assert result.size() == 1;
     }
 
@@ -135,7 +135,7 @@ public class TreeDataServiceTest {
         Mockito.when(httpProxyMock.getData(any(HttpGet.class))).thenReturn(jsonArray);
         Mockito.when(utilMock.getHttpProxyInstance()).thenReturn(httpProxyMock);
 
-        Map result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
+        Map<String, Integer> result = serviceToBeTested.fetchTreeData(searchParam,utilMock);
         assert result.size() == 0;
     }
 }

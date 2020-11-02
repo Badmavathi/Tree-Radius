@@ -30,14 +30,19 @@ Good luck and happy coding!
 
 > Run App.java as JAVA Application
 
-> App is running on localhost:8080. Sample get request :
+> App is running on localhost:8080. 
+	
+	For Sample get request :
 
 >	http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000&common_name=Sophora
+
 >	http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000
     
-> To Get results from UI :
+	To Get results from UI :
+	
 	http://localhost:8080/
-    Enter the sample co-ordinate values	as below
+
+    Enter the sample co-ordinate values	as below in the appropriate textboxes
     	
     	X-Coordinate - 913368
     	Y-Coordinate - 124270
@@ -54,13 +59,14 @@ Within the attached zip, there are two packages attached:
 2. JaCoCo package - this zip folder contains the jacoco library generated files.  
  
  
-Unit Tests coverage : 97% -> Report generated using Jacoco. 
+Unit Tests coverage : 98% -> Report generated using Jacoco. 
  	
 ## Advantages
 1. Code can be manually tested through UI by giving required input values.
+		Ex : http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000
 2. Common name filtering has been added to the code which is optional to check the count of particular tree.
+		Ex : http://localhost:8080/trees?x_coord=913368&y_coord=124270&radius=1000&common_name=Sophora
 
 ## Disadvantages
-1. More code refactoring needs to be done, So Unit tests can be improved to make it 100%, as code is not completed testable now.
-2. Third party API returns random 1000 values and is inconsistent. We have to batch process it to get the complete result (like elastic search..)    
+1. Third party API returns random 1000 values and is inconsistent. We have to batch process it to get the complete result (like elastic search..)    
 
